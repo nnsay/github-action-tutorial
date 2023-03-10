@@ -1,4 +1,4 @@
-name: DEV certification deployment
+name: certification deployment
 
 run-name: deploy ${{ github.input.domain }} certification
 
