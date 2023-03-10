@@ -7,9 +7,10 @@
 本地测试:
 ```
 # 部署
-act --input action=deploy
+act
+act --input action=true 
 
 # 销毁
-act --input action=destroy
+act --input action=false
 ```
 注意: `.input`是本地测试`act`工具默认加载的输入文件,模拟参数输入.
