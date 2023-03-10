@@ -2,7 +2,7 @@ name: manage certification
 
 run-name: ${{ inputs.action }} ${{ inputs.env_name }}  ${{ inputs.domain }} certification
 
-on:r
+on:
   workflow_dispatch:
     inputs:
       domain:
