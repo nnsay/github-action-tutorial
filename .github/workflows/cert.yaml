@@ -23,6 +23,10 @@ on:
           - dev
           - staging
           - prod
+      is_deploy:
+        description: "deploy?"
+        type: boolean
+        default: true
 
 env:
   ENV_NAME: ${{ inputs.env_name }}
@@ -30,6 +34,7 @@ env:
 
 jobs:
   deploy:
+    if: github.event.inputs.is_deploy
     name: upload certification
     runs-on: ubuntu-latest
     environment: ${{ inputs.env_name }}
@@ -40,6 +45,7 @@ jobs:
           echo "DOMAIN: $DOMAIN"
           echo yarn nx run infra:cert
   destroy:
+    if: ! github.event.inputs.is_deploy
     name: delete certification
     runs-on: ubuntu-latest
     environment: ${{ inputs.env_name }}
