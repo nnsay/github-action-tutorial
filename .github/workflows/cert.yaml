@@ -1,8 +1,8 @@
 name: manage certification
 
-run-name: ${{ github.event.inputs.action }} ${{ github.event.inputs.domain }} certification
+run-name: ${{ inputs.action }} ${{ inputs.env_name }}  ${{ inputs.domain }} certification
 
-on:
+on:r
   workflow_dispatch:
     inputs:
       domain:
