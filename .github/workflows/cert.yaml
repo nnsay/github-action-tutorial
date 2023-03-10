@@ -1,6 +1,6 @@
 name: manage certification
 
-run-name: ${{ inputs.action }} ${{ inputs.env_name }}  ${{ inputs.domain }} certification
+run-name: deploy ${{ inputs.env_name }}  ${{ inputs.domain }} certification ${{ inputs.action }}
 
 on:
   workflow_dispatch:
