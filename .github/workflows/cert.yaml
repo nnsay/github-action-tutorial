@@ -31,6 +31,7 @@ on:
 env:
   ENV_NAME: ${{ inputs.env_name }}
   DOMAIN: ${{ inputs.domain }}
+  CERT_PRIVATE_SANDBOX_VISUALDYNAMICS: ${{ secrets.CERT_PRIVATE_SANDBOX_VISUALDYNAMICS }}
 
 jobs:
   deploy:
@@ -41,8 +42,8 @@ jobs:
     steps:
       - name: upload
         run: |
-          echo "ENV_NAME: $ENV_NAME"
-          echo "DOMAIN: $DOMAIN"
+          env
+          echo "${{ secrets.CERT_PRIVATE_SANDBOX_VISUALDYNAMICS }}"
           echo yarn nx run infra:cert
   destroy:
     if: ${{ ! inputs.action }}
