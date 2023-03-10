@@ -1,0 +1,51 @@
+name: DEV certification deployment
+
+run-name: deploy ${{ github.input.domain }} certification
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: "domain name; eg: visualdynamics"
+        default: visualdynamics
+        required: true
+        type: choice
+        options:
+          - visualdynamics
+          - solarsketch
+      env_name:
+        description: "env name; eg: sandbox"
+        default: sandbox
+        required: true
+        type: choice
+        options:
+          - sandbox
+          - dev
+          - staging
+          - prod
+
+env:
+  ENV_NAME: ${{ inputs.env_name }}
+  DOMAIN: ${{ inputs.domain }}
+
+jobs:
+  deploy:
+    name: upload certification
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.env_name }}
+    steps:
+      - name: upload
+        run: |
+          echo "ENV_NAME: $ENV_NAME"
+          echo "DOMAIN: $DOMAIN"
+          echo yarn nx run infra:cert
+  destroy:
+    name: delete certification
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.env_name }}
+    steps:
+      - name: delete
+        run: |
+          echo "ENV_NAME: $ENV_NAME"
+          echo "DOMAIN: $DOMAIN"
+          echo yarn nx run infra:cert-destroy
