@@ -42,9 +42,11 @@ jobs:
     steps:
       - name: upload
         run: |
-          env
-          echo "${{ secrets.CERT_PRIVATE_SANDBOX_VISUALDYNAMICS }}"
+          echo ${{ env.ENV_NAME }}
+          echo $ENV_NAME
           echo yarn nx run infra:cert
+        env:
+          ENV_NAME: ${{ env.ENV_NAME }}
   destroy:
     if: ${{ ! inputs.action }}
     name: delete certification
