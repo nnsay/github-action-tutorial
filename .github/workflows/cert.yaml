@@ -29,7 +29,7 @@ on:
         default: true
 
 env:
-  ENV_NAME: ${{ inputs.env_name }}
+  # ENV_NAME: ${{ inputs.env_name }}
   DOMAIN: ${{ inputs.domain }}
   CERT_PRIVATE_SANDBOX_VISUALDYNAMICS: ${{ secrets.CERT_PRIVATE_SANDBOX_VISUALDYNAMICS }}
 
