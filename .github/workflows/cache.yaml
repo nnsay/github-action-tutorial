@@ -14,13 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
+
       - uses: actions/cache@v3
+        id: cache-node-module
         with:
           key: ${{ runner.os }}-modules-${{ hashFiles('yarn.lock') }}
           path: node_modules
+
       - name: Install Depedency
+        if: steps.cache-node-module.outputs.cache-hit != 'true'
         run: yarn install
       
