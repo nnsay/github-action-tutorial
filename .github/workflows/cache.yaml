@@ -1,0 +1,26 @@
+name: action catch test
+
+run-name: "action: ${{ inputs.action }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        type: string
+        description: operation what?
+
+jobs:
+  yarn:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-modules-${{ hashFiles('yarn.lock')
+          path: node_modules
+      - name: Install Depedency
+        run: yarn install
+      
