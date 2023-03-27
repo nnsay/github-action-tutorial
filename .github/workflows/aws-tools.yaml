@@ -1,6 +1,6 @@
 name: aws tools
 
-run-name: deploy ${{ inputs.env_name }}  ${{ inputs.domain }} certification ${{ inputs.action }}
+run-name: ${{ inputs.env_name }} opration 
 
 on:
   workflow_dispatch:
