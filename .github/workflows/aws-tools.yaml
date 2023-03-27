@@ -1,4 +1,4 @@
-name: manage certification
+name: aws tools
 
 run-name: deploy ${{ inputs.env_name }}  ${{ inputs.domain }} certification ${{ inputs.action }}
 
