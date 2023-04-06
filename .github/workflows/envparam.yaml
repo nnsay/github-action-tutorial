@@ -20,7 +20,7 @@ jobs:
         env:
           STEP_ENV1: 1
           STEP_ENV2: 2
-      - name: check env
+      - name: output
         run: |
           echo "JOB_ENV1: $JOB_ENV1"
           echo "JOB_ENV2: $JOB_ENV2"
