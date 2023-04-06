@@ -11,7 +11,7 @@ env:
 
 jobs:
   test:
-    name: clear iam cert
+    name: list all environments
     runs-on: ubuntu-latest
     environment: ${{ inputs.env_name }}
     steps:
