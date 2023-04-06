@@ -1,0 +1,24 @@
+name: aws tools
+
+run-name: ${{ inputs.env_name }} operation 
+
+on:
+  workflow_dispatch:
+
+env:
+  JOB_ENV1: p1
+  JOB_ENV2: p2
+
+jobs:
+  clear-iam-cert:
+    name: clear iam cert
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.env_name }}
+    steps:
+      - name: download and clear
+        run: |
+          env
+        env:
+          STEP_ENV1: 1
+          STEP_ENV2: 2
+
