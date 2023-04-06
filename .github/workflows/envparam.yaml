@@ -16,8 +16,16 @@ jobs:
     environment: ${{ inputs.env_name }}
     steps:
       - name: check env
+        run: env
+        env:
+          STEP_ENV1: 1
+          STEP_ENV2: 2
+      - name: check env
         run: |
-          env
+          echo "JOB_ENV1: $JOB_ENV1"
+          echo "JOB_ENV2: $JOB_ENV2"
+          echo "STEP_ENV1: $STEP_ENV1"
+          echo "STEP_ENV2: $STEP_ENV2"
         env:
           STEP_ENV1: 1
           STEP_ENV2: 2
