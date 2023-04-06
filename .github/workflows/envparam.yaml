@@ -10,7 +10,7 @@ env:
   JOB_ENV2: p2
 
 jobs:
-  clear-iam-cert:
+  test:
     name: clear iam cert
     runs-on: ubuntu-latest
     environment: ${{ inputs.env_name }}
