@@ -11,11 +11,11 @@ env:
 
 jobs:
   test:
-    name: list all environments
+    name: check environments
     runs-on: ubuntu-latest
     environment: ${{ inputs.env_name }}
     steps:
-      - name: download and clear
+      - name: check env
         run: |
           env
         env:
