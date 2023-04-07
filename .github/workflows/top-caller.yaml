@@ -20,6 +20,7 @@ env:
 
 jobs:
   caller:
+    name: call the reused workflow
     uses: ./.github/workflows/call.yaml
     with:
       iparameter: 'test01'
