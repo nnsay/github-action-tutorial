@@ -1,0 +1,43 @@
+name: reused workfow
+
+on:
+  workflow_call:
+    inputs:
+      iparameter:
+        required: true
+        type: string
+    outputs:
+      result:
+        description: the result for xx
+        value: ${{ jobs.call.outputs.result }}
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      AWS_DEFAULT_REGION:
+        required: true
+
+jobs:
+  call:
+    name: Run call
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.stepoutput.outputs.result }}
+    steps:
+      - name: Start step
+        run: echo "start call job step"
+      - name: Run
+        run: |
+          echo "iparameter: ${{ inputs.iparameter }}"
+          echo "AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}"
+          echo "AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          echo "AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}"
+      - name: Output
+        id: stepoutput
+        run: |
+          echo "result=hello ${{ inputs.iparameter }}" >> $GITHUB_OUTPUT
+          echo "result=hello ${{ inputs.iparameter }}"
+      - name: End step
+        run: echo "end call job step"
+
