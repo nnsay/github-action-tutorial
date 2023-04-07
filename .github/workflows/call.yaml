@@ -13,13 +13,13 @@ on:
       result:
         description: the result for xx
         value: ${{ jobs.call.outputs.result }}
-    secrets:
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
-      AWS_DEFAULT_REGION:
-        required: true
+    # secrets:
+    #   AWS_ACCESS_KEY_ID:
+    #     required: true
+    #   AWS_SECRET_ACCESS_KEY:
+    #     required: true
+    #   AWS_DEFAULT_REGION:
+    #     required: true
 
 jobs:
   call:
@@ -40,12 +40,13 @@ jobs:
           echo "iparameter: ${{ inputs.iparameter }}"
           echo "AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}"
           echo "AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-          echo "AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}"
       - name: Output
         id: stepoutput
         run: |
-          echo "result=hello ${{ inputs.iparameter }}" >> $GITHUB_OUTPUT
-          echo "result=hello ${{ inputs.iparameter }}"
+          echo "result=${{ format('AK: {0}, AS: {1}', secrets.AWS_ACCESS_KEY_ID, secrets.AWS_SECRET_ACCESS_KEY) }}" >> $GITHUB_OUTPUT
+          echo "result=${{ format('AK: {0}, AS: {1}', secrets.AWS_ACCESS_KEY_ID, secrets.AWS_SECRET_ACCESS_KEY) }}"
+          echo is dev ${{ endsWith(secrets.AWS_ACCESS_KEY_ID, 'dev') }}
+          echo is sandbox ${{ endsWith(secrets.AWS_ACCESS_KEY_ID, 'sandbox') }}
       - name: End step
         run: echo "end call job step"
 
