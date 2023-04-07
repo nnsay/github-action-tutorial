@@ -43,8 +43,8 @@ jobs:
       - name: Output
         id: stepoutput
         run: |
-          echo "result=${{ format('hello word {0}, {1}', inputs.envName, inputs.iparameter }}" >> $GITHUB_OUTPUT
-          echo "result=${{ format('hello word {0}, {1}', inputs.envName, inputs.iparameter }}"
+          echo "result=${{ format('hello word {0}, {1}', inputs.envName, inputs.iparameter) }}" >> $GITHUB_OUTPUT
+          echo "result=${{ format('hello word {0}, {1}', inputs.envName, inputs.iparameter) }}"
           echo is dev ${{ endsWith(secrets.AWS_ACCESS_KEY_ID, 'dev') }}
           echo is sandbox ${{ endsWith(secrets.AWS_ACCESS_KEY_ID, 'sandbox') }}
       - name: End step
