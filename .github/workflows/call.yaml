@@ -36,10 +36,10 @@ jobs:
       - name: Start step
         run: echo "start call job step"
       - name: Print env 1
-        if: inputs.enable
+        if: inputs.enable != ''
         run: echo "ENV_NAME:$ENV_NAME"
       - name: Print env 2
-        if: ! Boolean(inputs.enable)
+        if: inputs.enable == ''
         run: echo "ENV_NAME:$ENV_NAME"
       - name: Run
         run: |
