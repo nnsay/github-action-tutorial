@@ -6,6 +6,9 @@ on:
       iparameter:
         required: true
         type: string
+      envName:
+        required: true
+        type: string
     outputs:
       result:
         description: the result for xx
@@ -24,9 +27,14 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.stepoutput.outputs.result }}
+    environment: ${{ inputs.envName }}
+    env: 
+      ENV_NAME: ${{ vars.ENV_NAME }}
     steps:
       - name: Start step
         run: echo "start call job step"
+      - name: Print env
+        run: echo "ENV_NAME:$ENV_NAME"
       - name: Run
         run: |
           echo "iparameter: ${{ inputs.iparameter }}"

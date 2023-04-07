@@ -4,6 +4,15 @@ run-name: ${{ inputs.env_name }} operation
 
 on:
   workflow_dispatch:
+    inputs:
+      envName:
+        description: give env name
+        required: true
+        type: choice
+        default: sandbox
+        options:
+          - sandbox
+          - dev
 
 env:
   JOB_ENV1: p1
@@ -14,6 +23,7 @@ jobs:
     uses: ./.github/workflows/call.yaml
     with:
       iparameter: 'test01'
+      envName: ${{ inputs.envName }}
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
