@@ -39,7 +39,7 @@ jobs:
         if: inputs.enable
         run: echo "ENV_NAME:$ENV_NAME"
       - name: Print env 2
-        if: ! inputs.enable
+        if: ! Boolean(inputs.enable)
         run: echo "ENV_NAME:$ENV_NAME"
       - name: Run
         run: |
