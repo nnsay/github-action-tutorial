@@ -23,7 +23,7 @@ on:
 
 jobs:
   call:
-    name: Run call
+    # name: Run call
     runs-on: ubuntu-latest
     outputs:
       result: ${{ steps.stepoutput.outputs.result }}
