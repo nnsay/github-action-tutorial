@@ -9,6 +9,8 @@ on:
       envName:
         required: true
         type: string
+      enable:
+        type: string
     outputs:
       result:
         description: the result for xx
@@ -34,6 +36,7 @@ jobs:
       - name: Start step
         run: echo "start call job step"
       - name: Print env
+        if: inputs.enable
         run: echo "ENV_NAME:$ENV_NAME"
       - name: Run
         run: |
