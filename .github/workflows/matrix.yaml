@@ -1,6 +1,6 @@
 name: matrix
 
-run-name: ${{ matrix.env_name }} operation 
+run-name: operation 
 
 on:
   workflow_dispatch:
