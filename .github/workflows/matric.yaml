@@ -31,6 +31,6 @@ jobs:
       - name: matrix in repo environment
         run: echo $ENV_NAME from repo environment
         env:
-          ENV_NAME: ${{var.ENV_NAME}}
+          ENV_NAME: ${{vars.ENV_NAME}}
 
 
