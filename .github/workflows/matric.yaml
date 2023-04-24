@@ -1,0 +1,36 @@
+name: matric
+
+run-name: ${{ inputs.env_name }} operation 
+
+on:
+  workflow_dispatch:
+
+jobs:
+  matrix:
+    name: check matrix
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        env_name: [sandbox, dev, staging, prod]
+    environment: ${{ matrix.env_name }}
+    steps:
+      - name: print env_name
+        run: echo ${{matrix.env_name}} from inline
+
+      - name: matrix to environment
+        run: echo $ENV_NAME from environment
+        env:
+          ENV_NAME: ${{matrix.env_name}}
+
+      - name: matrix to environment
+        run: echo $ENV_NAME from step environment
+        env:
+          ENV_NAME: ${{matrix.env_name}}
+
+      - name: matrix in repo environment
+        run: echo $ENV_NAME from repo environment
+        env:
+          ENV_NAME: ${{var.ENV_NAME}}
+
+
