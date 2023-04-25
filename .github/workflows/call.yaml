@@ -30,7 +30,7 @@ jobs:
     outputs:
       result: ${{ steps.stepoutput.outputs.result }}
     environment: ${{ inputs.envName }}
-    env: 
+    env:
       ENV_NAME: ${{ vars.ENV_NAME }}
     steps:
       - name: Start step
@@ -55,4 +55,3 @@ jobs:
           echo is sandbox ${{ endsWith(secrets.AWS_ACCESS_KEY_ID, 'sandbox') }}
       - name: End step
         run: echo "end call job step"
-

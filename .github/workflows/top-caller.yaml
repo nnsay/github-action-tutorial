@@ -1,6 +1,6 @@
 name: reused workfow caller
 
-run-name: ${{ inputs.envName }} operation 
+run-name: ${{ inputs.envName }} operation
 
 on:
   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
     uses: ./.github/workflows/call.yaml
     needs: conditon
     with:
-      iparameter: 'test01'
+      iparameter: "test01"
       envName: ${{ inputs.envName }}
       enable: ${{ needs.conditon.outputs.enable }}
     secrets: inherit

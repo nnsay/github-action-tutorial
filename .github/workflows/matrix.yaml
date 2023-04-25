@@ -1,11 +1,11 @@
 name: matrix
 
-run-name: operation 
+run-name: operation
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 * * * *'
+    - cron: "0 * * * *"
 
 jobs:
   matrix:
@@ -34,5 +34,3 @@ jobs:
         run: echo $ENV_NAME from repo environment
         env:
           ENV_NAME: ${{vars.ENV_NAME}}
-
-
