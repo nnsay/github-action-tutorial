@@ -1,0 +1,17 @@
+name: wait the workflow complate
+
+on:
+  workflow_run:
+    workflows:
+      - "workflow run"
+    types:
+      - completed
+
+
+jobs:
+  do:
+    name: do something after target workflow complete
+    runs-on: ubuntu-latest
+    steps:
+      - name: do something
+        run: date
