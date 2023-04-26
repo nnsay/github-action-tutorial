@@ -14,3 +14,10 @@ act --input action=true
 act --input action=false
 ```
 注意: `.input`是本地测试`act`工具默认加载的输入文件,模拟参数输入.
+
+# Signing Code
+
+```bash
+git config --global gpg.format ssh
+git config --global user.signingkey ~/.ssh/id_ed25519.pub
+```
