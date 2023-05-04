@@ -1,0 +1,14 @@
+name: Custom commit check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    name: Check latest commit
+    steps:
+      - name: Check upgrade commit
+        run: |
+          echo ${{ github.action_ref }}
+
