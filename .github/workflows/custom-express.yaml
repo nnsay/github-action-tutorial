@@ -9,10 +9,24 @@ jobs:
   check:
     runs-on: ubuntu-latest
     name: Check latest commit
+    outputs:
+      release-sha: ${{ steps.check-commit.outputs.is-upgrade-commit }}
     steps:
       - name: Check upgrade commit
+        id: check-commit
         run: |
           echo ${{ github.action_ref }}
           echo ${{ github.action }}
-          echo ${{ github.sha }}
-
+          message=$(git show -s --format=%B)
+          echo "message: $message"
+          if [ $message == "chore: upgrade version" ]; then
+            echo "is-upgrade-commit=trie" >> $GITHUB_OUTPUT
+          fi
+  useage:
+    runs-on: ubuntu-latest
+    name: Use the checked commit
+    needs: check
+    steps:
+      - name: Output the checked commit
+        run: |
+          echo ${{ needs.check-commit.outputs.is-upgrade-commmit }}
