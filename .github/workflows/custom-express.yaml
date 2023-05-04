@@ -9,8 +9,6 @@ jobs:
   check:
     runs-on: ubuntu-latest
     name: Check latest commit
-    outputs:
-      is-upgrade-commit: ${{ steps.check-commit.outputs.is-upgrade-commit }}
     steps:
       - name: Check out git repository
         uses: actions/checkout@v3
@@ -19,7 +17,7 @@ jobs:
 
       - name: Check upgrade commit
         id: check-commit
-        if: github.actor=="" && endsWith(github.event.head_commit.message, 'upgrade version')
+        if: ${{ github.actor=="" && endsWith(github.event.head_commit.message, 'upgrade version') }}
         run: |
           echo 1
           echo ${{ github.action }}
