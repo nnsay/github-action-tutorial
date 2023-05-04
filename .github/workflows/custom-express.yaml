@@ -22,9 +22,9 @@ jobs:
         run: |
           echo ${{ github.action_ref }}
           echo ${{ github.action }}
-          is-upgrade-commit=$(git show -s --format=%B | grep 'upgrade version')
-          if [ $is-upgrade-commit ]; then
-            echo "is-upgrade-commit=$is-upgrade-commit" >> $GITHUB_OUTPUT
+          msg=$(git show -s --format=%B)
+          if [ ${{contains($msg,"upgrade version")}} ]; then
+            echo "is-upgrade-commit=true" >> $GITHUB_OUTPUT
           fi
   useage:
     runs-on: ubuntu-latest
