@@ -12,6 +12,11 @@ jobs:
     outputs:
       release-sha: ${{ steps.check-commit.outputs.is-upgrade-commit }}
     steps:
+      - name: Check out git repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
       - name: Check upgrade commit
         id: check-commit
         run: |
