@@ -17,7 +17,7 @@ jobs:
 
       - name: Check upgrade commit
         id: check-commit
-        if: ${{ github.actor=="" && endsWith(github.event.head_commit.message, 'upgrade version') }}
+        if: github.actor=='' && endsWith(github.event.head_commit.message, 'upgrade version')
         run: |
           echo 1
           echo ${{ github.action }}
