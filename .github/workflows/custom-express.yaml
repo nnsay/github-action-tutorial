@@ -17,7 +17,7 @@ jobs:
         run: |
           echo ${{ github.action_ref }}
           echo ${{ github.action }}
-          message=$(git show -s --format=%B)
+          message=$(git show -s --format=%B ${{ github.sha }})
           echo "message: $message"
           if [ $message == "chore: upgrade version" ]; then
             echo "is-upgrade-commit=trie" >> $GITHUB_OUTPUT
