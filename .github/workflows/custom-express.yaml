@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Check latest commit
     outputs:
-      release-sha: ${{ steps.check-commit.outputs.is-upgrade-commit }}
+      is-upgrade-commit: ${{ steps.check-commit.outputs.is-upgrade-commit }}
     steps:
       - name: Check out git repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
+
       - name: Check upgrade commit
         id: check-commit
         run: |
@@ -24,7 +24,7 @@ jobs:
           echo ${{ github.action }}
           message=$(git show -s --format=%B ${{ github.sha }})
           echo "message: $message"
-          if [ $message == "chore: upgrade version" ]; then
+          if [ ! $message == "chore: upgrade version" ]; then
             echo "is-upgrade-commit=trie" >> $GITHUB_OUTPUT
           fi
   useage:
@@ -34,4 +34,4 @@ jobs:
     steps:
       - name: Output the checked commit
         run: |
-          echo ${{ needs.check-commit.outputs.is-upgrade-commmit }}
+          echo ${{ needs.check.outputs.is-upgrade-commmit }}
