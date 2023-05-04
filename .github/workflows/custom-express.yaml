@@ -24,7 +24,7 @@ jobs:
           echo ${{ github.action }}
           echo ${{ toJSON(github) }}
           echo ${{ contains(github.event.head_commit.message, 'upgrade version') }}
-          if [ ${{contains(github.event.head_commit.message, 'upgrade version') }} ]; then
+          if [[ ${{contains(github.event.head_commit.message, 'upgrade version') }} ]]; then
             echo "is-upgrade-commit=true" >> $GITHUB_OUTPUT
           fi
   useage:
