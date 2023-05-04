@@ -1,7 +1,9 @@
 name: Custom commit check
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   check:
@@ -11,4 +13,7 @@ jobs:
       - name: Check upgrade commit
         run: |
           echo ${{ github.action_ref }}
+          echo ${{ github.action }}
+          echo ${{ event.action }}
+          echo ${{ event.sha }}
 
