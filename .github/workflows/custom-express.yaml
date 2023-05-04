@@ -21,11 +21,15 @@ jobs:
         id: check-commit
         if: contains(github.event.head_commit.message, 'upgrade version')
         run: |
-          echo ${{ github.action_ref }}
+          echo 1
           echo ${{ github.action }}
+          echo 2
           echo ${{ toJSON(github) }}
+          echo 3
           isUpgradeCommit=${{ contains(github.event.head_commit.message, 'upgrade version') }}
+          echo 4
           echo "is-upgrade-commit=$isUpgradeCommit" >> $GITHUB_OUTPUT
+          echo 5
   useage:
     runs-on: ubuntu-latest
     name: Use the checked commit
