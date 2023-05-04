@@ -24,7 +24,7 @@ jobs:
           echo 1
           echo ${{ github.action }}
           echo 2
-          echo ${{ toJSON(github) }}
+          ${{ toJSON(github) }}
           echo 3
           isUpgradeCommit=${{ contains(github.event.head_commit.message, 'upgrade version') }}
           echo 4
