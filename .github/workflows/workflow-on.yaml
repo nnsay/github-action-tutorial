@@ -13,5 +13,7 @@ jobs:
     name: do something after target workflow complete
     runs-on: ubuntu-latest
     steps:
+      - name: Check out git repository
+        uses: actions/checkout@v3
       - name: do something
         run: date

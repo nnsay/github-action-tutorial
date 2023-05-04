@@ -8,5 +8,7 @@ jobs:
     name: empty job
     runs-on: ubuntu-latest
     steps:
+      - name: Check out git repository
+        uses: actions/checkout@v3
       - name: run nothing
         run: echo $(date) 
