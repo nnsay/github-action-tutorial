@@ -25,7 +25,7 @@ jobs:
           echo ${{ github.action }}
           echo ${{ toJSON(github) }}
           is-upgrade-commit=${{ contains(github.event.head_commit.message, 'upgrade version') }}
-          echo "is-upgrade-commit=$is-upgrade-commit" >> $GITHUB_OUTPUT
+          echo "is-upgrade-commit=${is-upgrade-commit}" >> $GITHUB_OUTPUT
   useage:
     runs-on: ubuntu-latest
     name: Use the checked commit
