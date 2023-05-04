@@ -23,7 +23,6 @@ jobs:
           echo ${{ github.action_ref }}
           echo ${{ github.action }}
           is-upgrade-commit=$(git show -s --format=%B | grep 'upgrade version')
-          echo "message: $message"
           if [ $is-upgrade-commit ]; then
             echo "is-upgrade-commit=$is-upgrade-commit" >> $GITHUB_OUTPUT
           fi
