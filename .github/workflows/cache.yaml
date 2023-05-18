@@ -9,6 +9,9 @@ on:
         type: string
         description: operation what?
 
+env:
+  AWS_TOOLS_VERSION: 0.0.3
+
 jobs:
   yarn:
     runs-on: ubuntu-latest
@@ -38,13 +41,13 @@ jobs:
         uses: actions/cache@v3
         id: cache-aws-tools
         with:
-          key: aws-tools-0.0.3
+          key: aws-tools-${{env.AWS_TOOLS_VERSION}}
           path: linux-amd64-aws-tools
 
       - name: download aws-tools
         if: steps.cache-aws-tools.outputs.cache-hit != 'true'
         run: |
-          wget -q https://github.com/nnsay/aws-tools/releases/download/v0.0.3/linux-amd64-aws-tools
+          wget -q https://github.com/nnsay/aws-tools/releases/download/v${{env.AWS_TOOLS_VERSION}}/linux-amd64-aws-tools
           chmod +x linux-amd64-aws-tools
 
       - name: check the execute file
