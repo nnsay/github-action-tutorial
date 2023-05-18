@@ -36,7 +36,8 @@ jobs:
           path: linux-amd64-aws-tools
 
       - name: download aws-tools
-        if: ${{ ! ./linux-amd64-aws-tools }}
         run: |
-          wget -q https://github.com/nnsay/aws-tools/releases/download/v0.0.3/linux-amd64-aws-tools
-          chmod +x linux-amd64-aws-tools
+          if [ ! -f linux-amd64-aws-tools ]; then
+            wget -q https://github.com/nnsay/aws-tools/releases/download/v0.0.3/linux-amd64-aws-tools
+            chmod +x linux-amd64-aws-tools
+          fi
