@@ -17,16 +17,20 @@ on:
           - prod
 
 jobs:
+  setup-aws-tools:
+    name: Setup aws-tools
+    uses: ./setup-aws-tools.yaml
+    with:
+      version: 0.0.3
+
   clear-iam-cert:
     name: clear iam cert
+    needs: setup-aws-tools
     runs-on: ubuntu-latest
     environment: ${{ inputs.env_name }}
     steps:
       - name: download and clear
-        run: |
-          wget -q https://github.com/nnsay/aws-tools/releases/download/v0.0.1/linux-amd64-aws-tools
-          chmod +x linux-amd64-aws-tools
-          ./linux-amd64-aws-tools iam delete-expired-certification
+        run: ./linux-amd64-aws-tools iam delete-expired-certification
         env:
           ENV_NAME: ${{ env.ENV_NAME }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
