@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: "16.x"
 
-      - uses: actions/cache@v3
-        id: cache-node-module
+      - name: cache-node-module
+        uses: actions/cache@v3
         with:
           key: ${{ runner.os }}-modules-${{ hashFiles('yarn.lock') }}
           path: node_modules
@@ -29,8 +29,8 @@ jobs:
         if: steps.cache-node-module.outputs.cache-hit != 'true'
         run: yarn install
 
-      - uses: actions/cache@v3
-        id: aws-tools
+      - name: aws-tools
+        uses: actions/cache@v3
         with:
           key: aws-tools-${{ hashFiles('linux-amd64-aws-tools') }}
           path: linux-amd64-aws-tools
