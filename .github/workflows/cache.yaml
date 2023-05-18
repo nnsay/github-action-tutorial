@@ -42,3 +42,6 @@ jobs:
         run: |
           wget -q https://github.com/nnsay/aws-tools/releases/download/v0.0.3/linux-amd64-aws-tools
           chmod +x linux-amd64-aws-tools
+
+      - name: check the execute file
+        run: linux-amd64-aws-tools help
