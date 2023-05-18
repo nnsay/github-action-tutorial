@@ -21,7 +21,7 @@ jobs:
     name: Setup aws-tools
     uses: ./setup-aws-tools.yaml
     with:
-      version: 0.0.3
+      version: "0.0.3"
 
   clear-iam-cert:
     name: clear iam cert
