@@ -29,6 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ inputs.env_name }}
     steps:
+      - name: Pwd
+        run: pwd
       - name: download and clear
         run: ./linux-amd64-aws-tools iam delete-expired-certification
         env:
