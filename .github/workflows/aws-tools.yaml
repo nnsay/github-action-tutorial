@@ -1,4 +1,4 @@
-name: aws tools
+name: Aws tools test
 
 run-name: ${{ inputs.env_name }} operation
 
