@@ -48,4 +48,4 @@ jobs:
           chmod +x linux-amd64-aws-tools
 
       - name: check the execute file
-        run: linux-amd64-aws-tools help
+        run: ./linux-amd64-aws-tools help
