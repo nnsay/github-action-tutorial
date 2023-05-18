@@ -40,5 +40,5 @@ jobs:
       - name: download aws-tools
         if: steps.cache-aws-tools.outputs.cache-hit != 'true'
         run: |
-          wget -q https://github.com/nnsay/aws-tools/releases/download/v0.0.3/linux-amd64-aws-tools
+          wget -q https://github.com/nnsay/aws-tools/releases/download/v0.0.1/linux-amd64-aws-tools
           chmod +x linux-amd64-aws-tools
