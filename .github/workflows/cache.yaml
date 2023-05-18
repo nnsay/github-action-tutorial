@@ -29,6 +29,10 @@ jobs:
       - name: Install Depedency
         if: steps.cache-node-module.outputs.cache-hit != 'true'
         run: yarn install
+  aws-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
       - name: aws-tools
         uses: actions/cache@v3
