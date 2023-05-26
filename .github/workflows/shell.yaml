@@ -11,6 +11,9 @@ jobs:
         run: |
           export VITE_TAG=1.0.1
           echo "VITE_TAG: $VITE_TAG"
+          env
       - name: outout export from above step
         run: echo VITE_TAG $VITE_TAG
+      - name: check env
+        run: env
 
