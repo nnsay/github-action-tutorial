@@ -1,5 +1,7 @@
 name: Test shell scripts
 
+on: workflow_dispatch
+
 jobs:
   shell:
     name: test shell
