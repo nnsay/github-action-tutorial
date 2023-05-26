@@ -1,0 +1,14 @@
+name: Test shell scripts
+
+jobs:
+  shell:
+    name: test shell
+    runs-on: ubuntu-latest
+    steps:
+      - name: export
+        run: |
+          export VITE_TAG=1.0.1
+          echo "VITE_TAG: $VITE_TAG"
+      - name: outout export from above step
+        run: echo VITE_TAG $VITE_TAG
+
