@@ -12,10 +12,9 @@ jobs:
 
       - name: test
         run: |
-          gitpath=$(which git)
-          mv ${gitpath} ${gitpath}_old
-          mv fakegit.sh ${gitpath}
-          
+          export OLDPATH=$PATH
+          export PATH="$(pwd)/bin;$PATH"
+
           git add aaa.log
           git status
 
