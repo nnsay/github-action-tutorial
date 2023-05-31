@@ -15,7 +15,9 @@ jobs:
           export OLDPATH=$PATH
           export PATH="$(pwd)/bin;$PATH"
 
-          git add aaa.log
+          which git
+          touch demo.log
+          git add demo.log
           git status
 
           mv ${gitpath}_old ${gitpath}
