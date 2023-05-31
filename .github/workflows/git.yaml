@@ -1,0 +1,28 @@
+name: Git replace
+
+on: workflow_dispatch
+
+jobs:
+  git:
+    name: replace git
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v3
+
+      - name: test
+        run: |
+          gitpath=$(which git)
+          mv ${gitpath} ${gitpath}_old
+          mv fakegit.sh ${gitpath}
+          
+          git add aaa.log
+          git status
+
+          mv ${gitpath}_old ${gitpath}
+
+      - name: outout export from above step
+        run: echo VITE_TAG $VITE_TAG
+      - name: check env
+        run: env
+
