@@ -20,10 +20,3 @@ jobs:
           git add demo.log
           git status
 
-          mv ${gitpath}_old ${gitpath}
-
-      - name: outout export from above step
-        run: echo VITE_TAG $VITE_TAG
-      - name: check env
-        run: env
-
