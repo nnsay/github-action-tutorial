@@ -3,5 +3,8 @@
 if [[ $1 == 'add' ]]; then
   echo "skip git add"
 else
+  echo $PATH
+  export PATH=$OLDPATH
+  echo $PATH
   git $@
 fi
