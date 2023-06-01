@@ -13,8 +13,8 @@ jobs:
       - name: test
         run: |
           export OLDPATH=$PATH
-          export PATH="$PATH;$(pwd)/bin"
-
+          export PATH="$(pwd)/bin:$PATH"
+          echo PATH $PATH
           which git
           touch demo.log
           git add demo.log
