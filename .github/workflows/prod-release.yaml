@@ -1,0 +1,19 @@
+name: Dev(Prod) release
+
+on:
+  workflow_dispatch:
+    inputs:
+      lastSuccessBranch:
+        type: string
+        description:  last successful branch for nx get the last successful deployment
+
+jobs:
+  deploy-aws:
+    uses: ./.github/workflows/deploy-aws.yml
+    with:
+      envName: prod
+      lastSuccessBranch: release-1.6.x
+      lastSuccessfulEvent: workflow_dispatch
+      
+    secrets: inherit
+    name: Deploy AWS - Staging environment

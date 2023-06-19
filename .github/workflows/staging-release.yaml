@@ -10,6 +10,7 @@ jobs:
     uses: ./.github/workflows/deploy-aws.yml
     with:
       envName: staging
-      lastSuccessBranch: master
+      lastSuccessBranch: release-1.6.x
+      lastSuccessfulEvent: push
     secrets: inherit
     name: Deploy AWS - Staging environment
