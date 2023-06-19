@@ -8,6 +8,13 @@ on:
         description:  last successful branch for nx get the last successful deployment
 
 jobs:
+  pre-deploy:
+    uses: ./.github/workflows/last-successful-workflow-info.yml
+    with:
+      workflowId: "60661226"
+    secrets: inherit
+    name: Generate last workflow run info output
+
   deploy-aws:
     uses: ./.github/workflows/deploy-aws.yml
     with:
