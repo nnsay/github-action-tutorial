@@ -9,7 +9,7 @@ jobs:
   pre-deploy:
     uses: ./.github/workflows/last-successful-workflow-info.yml
     with:
-      workflowId: "60653738"
+      workflowId: 60653738
     secrets: inherit
     name: Generate last workflow run info output
     

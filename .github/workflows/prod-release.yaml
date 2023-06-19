@@ -11,16 +11,16 @@ jobs:
   pre-deploy:
     uses: ./.github/workflows/last-successful-workflow-info.yml
     with:
-      workflowId: "60661226"
+      workflowId: 60661226
     secrets: inherit
     name: Generate last workflow run info output
 
   deploy-aws:
+    needs: pre-deploy
     uses: ./.github/workflows/deploy-aws.yml
     with:
       envName: prod
-      lastSuccessBranch: release-1.6.x
-      lastSuccessfulEvent: workflow_dispatch
-      
+      lastSuccessBranch: ${{ needs.pre-deploy.outputs.head_branch }}
+      lastSuccessfulEvent: ${{ needs.pre-deploy.outputs.event }}
     secrets: inherit
     name: Deploy AWS - Staging environment

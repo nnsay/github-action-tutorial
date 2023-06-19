@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       workflowId:
-        type: string
+        type: number
         description: the github workflow id
         required: true
 
