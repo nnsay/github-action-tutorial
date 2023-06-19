@@ -1,0 +1,14 @@
+name: Dev(master) release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy-aws:
+    uses: ./.github/workflows/deploy-aws.yml
+    with:
+      envName: dev
+    secrets: inherit
+    name: Deploy AWS - Dev environment
