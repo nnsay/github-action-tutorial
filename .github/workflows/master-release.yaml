@@ -17,8 +17,8 @@ jobs:
     name: Get the last workflow run info
     runs-on: ubuntu-latest
     outputs:
-      head_branch: ${{ steps.lastWorflowInfo.outputs.head_branch }}
-      event: ${{ steps.lastWorflowInfo.outputs.event }}
+      head_branch: ${{ steps.last_worflow_info.outputs.head_branch }}
+      event: ${{ steps.last_worflow_info.outputs.event }}
     steps:
       - name: Get last successful workflow runs
         run: "gh api \
@@ -29,7 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Generate output
-        id: lastWorflowInfo
+        id: last_worflow_info
         run: |
           head_branch=$(jq -r .head_branch < temp.json)
           event=$(jq -r .event < temp.json)
@@ -37,7 +37,7 @@ jobs:
           echo $event
           echo "head_branch=$head_branch" >> $GITHUB_OUTPUT
           echo "event=$event" >> $GITHUB_OUTPUT
-          
+
   deploy-aws:
     needs: pre-deploy
     uses: ./.github/workflows/deploy-aws.yml
