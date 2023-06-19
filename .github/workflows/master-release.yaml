@@ -7,7 +7,6 @@ on:
 
 jobs:
   deploy-aws:
-    needs: pre-deploy
     uses: ./.github/workflows/deploy-aws.yml
     with:
       envName: dev
