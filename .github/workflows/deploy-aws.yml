@@ -10,9 +10,11 @@ on:
       lastSuccessfulEvent:
         type: string
         description:  last successful event for nx get the last successful deployment
+        required: true
       lastSuccessBranch:
         type: string
         description:  last successful branch for nx get the last successful deployment
+        required: true
 
 jobs:
   deploy:

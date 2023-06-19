@@ -28,6 +28,7 @@ jobs:
           | jq -r '.workflow_runs[0]|{head_branch,event}' > temp.json"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: Generate output
         id: last_worflow_info
         run: |
