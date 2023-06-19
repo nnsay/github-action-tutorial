@@ -10,6 +10,6 @@ jobs:
     uses: ./.github/workflows/deploy-aws.yml
     with:
       envName: dev
-      workflowId: master-release.yaml
+      lastSuccessBranch: master
     secrets: inherit
     name: Deploy AWS - Dev environment

@@ -7,9 +7,12 @@ on:
         type: string
         description: the deployment environment
         required: true
-      workflowId:
+      lastSuccessfulEvent:
         type: string
-        description:  workflow id for nx get the last successful deployment
+        description:  last successful event for nx get the last successful deployment
+      lastSuccessBranch:
+        type: string
+        description:  last successful branch for nx get the last successful deployment
 
 jobs:
   deploy:
@@ -28,8 +31,7 @@ jobs:
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
         with:
-          main-branch-name: master
-          workflow-id: ${{ inputs.workflowId }}
+          main-branch-name: ${{ inputs.lastSuccessBranch }}
 
       - run: |
           echo "BASE: ${{ env.NX_BASE }}"
