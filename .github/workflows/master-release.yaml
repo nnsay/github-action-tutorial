@@ -6,45 +6,11 @@ on:
       - master
 
 jobs:
-  # pre-deploy:
-  #   uses: ./.github/workflows/last-successful-workflow-info.yml
-  #   with:
-  #     workflowId: 60653737
-  #   secrets: inherit
-  #   name: Generate last workflow run info output
-
-  pre-deploy:
-    name: Get the last workflow run info
-    runs-on: ubuntu-latest
-    outputs:
-      head_branch: ${{ steps.last_worflow_info.outputs.head_branch }}
-      event: ${{ steps.last_worflow_info.outputs.event }}
-    steps:
-      - name: Get last successful workflow runs
-        run: "gh api \
-          -H \"Accept: application/vnd.github+json\" 
-          -H \"X-GitHub-Api-Version: 2022-11-28\" \
-          \"/repos/${{ github.repository }}/actions/workflows/${{ inputs.workflowId }}/runs?status=success\" \
-          | jq -r '.workflow_runs[0]|{head_branch,event}' > temp.json"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Generate output
-        id: last_worflow_info
-        run: |
-          head_branch=$(jq -r .head_branch < temp.json)
-          event=$(jq -r .event < temp.json)
-          echo $head_branch
-          echo $event
-          echo "head_branch=$head_branch" >> $GITHUB_OUTPUT
-          echo "event=$event" >> $GITHUB_OUTPUT
-
   deploy-aws:
     needs: pre-deploy
     uses: ./.github/workflows/deploy-aws.yml
     with:
       envName: dev
-      lastSuccessBranch: ${{ needs.pre-deploy.outputs.head_branch }}
-      lastSuccessfulEvent: ${{ needs.pre-deploy.outputs.event }}
+      workflowId: 60653737
     secrets: inherit
     name: Deploy AWS - Dev environment

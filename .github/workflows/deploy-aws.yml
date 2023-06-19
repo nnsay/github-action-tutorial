@@ -45,6 +45,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out git repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Output the needs output
         run:
           echo head_branch=${{ needs.workflow_info.outputs.head_branch }}
