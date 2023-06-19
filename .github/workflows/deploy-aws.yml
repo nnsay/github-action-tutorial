@@ -7,34 +7,54 @@ on:
         type: string
         description: the deployment environment
         required: true
-      lastSuccessfulEvent:
-        type: string
-        description:  last successful event for nx get the last successful deployment
-        required: true
-      lastSuccessBranch:
-        type: string
-        description:  last successful branch for nx get the last successful deployment
+      workflowId:
+        type: number
+        description: the github workflow id
         required: true
 
 jobs:
+  workflow_info:
+    name: Get the last workflow run info
+    runs-on: ubuntu-latest
+    outputs:
+      head_branch: ${{ steps.lastWorflowInfo.outputs.head_branch }}
+      event: ${{ steps.lastWorflowInfo.outputs.event }}
+    steps:
+      - name: Get last successful workflow runs
+        run: "gh api \
+          -H \"Accept: application/vnd.github+json\" 
+          -H \"X-GitHub-Api-Version: 2022-11-28\" \
+          \"/repos/${{ github.repository }}/actions/workflows/${{ inputs.workflowId }}/runs?status=success\" \
+          | jq -r '.workflow_runs[0]|{head_branch,event}' > temp.json"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Generate output
+        id: lastWorflowInfo
+        run: |
+          head_branch=$(jq -r .head_branch < temp.json)
+          event=$(jq -r .event < temp.json)
+          echo $head_branch
+          echo $event
+          echo "head_branch=$head_branch" >> $GITHUB_OUTPUT
+          echo "event=$event" >> $GITHUB_OUTPUT
+
   deploy:
     name: Deploy AWS
+    needs: workflow_info
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out git repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Output the needs output
+        run:
+          echo head_branch=${{ needs.workflow_info.outputs.head_branch }}
+          echo event=${{ needs.workflow_info.outputs.event }}
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
         with:
-          main-branch-name: ${{ github.ref_name }}
-          last-successful-event: ${{ inputs.lastSuccessfulEvent }}
+          main-branch-name: ${{ needs.workflow_info.outputs.head_branch }}
+          last-successful-event: ${{ needs.workflow_info.outputs.event }}
 
       - run: |
           echo "BASE: ${{ env.NX_BASE }}"
