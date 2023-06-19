@@ -3,12 +3,13 @@ name: Dev(master) release
 on:
   push:
     branches:
-      - release/*
+      - release*
 
 jobs:
   deploy-aws:
     uses: ./.github/workflows/deploy-aws.yml
     with:
       envName: staging
+      workflowId: 60653737
     secrets: inherit
     name: Deploy AWS - Staging environment
