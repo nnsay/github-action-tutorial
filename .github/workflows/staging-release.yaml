@@ -25,7 +25,7 @@ jobs:
       - name: Generate output
         run: |
           head_branch=$(jq -r .head_branch < temp.json)
-          event=$(jq -r .head_branch < temp.json)
+          event=$(jq -r .event < temp.json)
           echo $head_branch
           echo $event
           echo "head_branch=$head_branch" >> $GITHUB_OUTPUT
