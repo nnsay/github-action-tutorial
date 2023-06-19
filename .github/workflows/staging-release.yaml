@@ -6,11 +6,35 @@ on:
       - release*
 
 jobs:
+  pre-deploy:
+    runs-on: ubuntu-latest
+    name: Get last succeful workflow
+    outputs:
+      head_branch: ${{ steps.lastWorflowInfo.outputs.head_branch }}
+      event: ${{ steps.lastWorflowInfo.outputs.event }}
+    steps:
+      - name: Get last successful workflow info
+        id: lastWorflowInfo
+        run: |
+          gh api -H "Accept: application/vnd.github+json" \
+             -H "X-GitHub-Api-Version: 2022-11-28" \ 
+             "/repos/${{ github.repository }}/actions/workflows/60653738/runs?per_page=1&status=success" \ 
+             | jq -r '.workflow_runs[0]|{head_branch,event}' > > temp.json
+          head_branch=$(jq -r .head_branch < temp.json)
+          event=$(jq -r .head_branch < temp.json)
+          echo $head_branch
+          echo $event
+          echo "head_branch=$head_branch" >> $GITHUB_OUTPUT
+          echo "event=$event" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
   deploy-aws:
+    needs: pre-deploy
     uses: ./.github/workflows/deploy-aws.yml
     with:
       envName: staging
-      lastSuccessBranch: release-1.6.x
-      lastSuccessfulEvent: push
+      lastSuccessBranch: ${{ needs.pre-deploy.outputs.head_branch }}
+      lastSuccessfulEvent: ${{ needs.pre-deploy.outputs.event }}
     secrets: inherit
     name: Deploy AWS - Staging environment
