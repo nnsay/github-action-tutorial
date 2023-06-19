@@ -1,7 +1,5 @@
 name: Last successful workflow run info
 
-run-name: Last successful run info for ${{ inputs.workflowId }}
-
 on:
   workflow_call:
     inputs:
@@ -12,12 +10,13 @@ on:
 
 jobs:
   workflow_info:
+    name: Get the last workflow run info
     runs-on: ubuntu-latest
     outputs:
       head_branch: ${{ steps.lastWorflowInfo.outputs.head_branch }}
       event: ${{ steps.lastWorflowInfo.outputs.event }}
     steps:
-      - name: Get last successful workflow info
+      - name: Get last successful workflow runs
         run: "gh api \
           -H \"Accept: application/vnd.github+json\" 
           -H \"X-GitHub-Api-Version: 2022-11-28\" \
