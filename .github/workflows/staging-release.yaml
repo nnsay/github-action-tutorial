@@ -11,6 +11,7 @@ jobs:
     with:
       workflowId: "60653738"
     secrets: inherit
+    name: Generate last workflow run info output
     
   deploy-aws:
     needs: pre-deploy
