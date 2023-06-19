@@ -8,7 +8,7 @@ on:
         description: the deployment environment
         required: true
       workflowId:
-        type: number
+        type: string
         description: the github workflow id
         required: true
 

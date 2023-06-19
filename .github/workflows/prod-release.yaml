@@ -8,6 +8,6 @@ jobs:
     uses: ./.github/workflows/deploy-aws.yml
     with:
       envName: prod
-      workflowId: 60661226
+      workflowId: prod-release.yaml
     secrets: inherit
     name: Deploy AWS - Staging environment
