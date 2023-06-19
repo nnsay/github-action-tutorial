@@ -1,4 +1,4 @@
-name: Dev(master) release
+name: Dev(Stagign) release
 
 on:
   push:
@@ -10,6 +10,6 @@ jobs:
     uses: ./.github/workflows/deploy-aws.yml
     with:
       envName: staging
-      workflowId: 60653737
+      # workflowId: 60653737
     secrets: inherit
     name: Deploy AWS - Staging environment
