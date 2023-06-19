@@ -32,6 +32,7 @@ jobs:
         uses: nrwl/nx-set-shas@v2
         with:
           main-branch-name: ${{ inputs.lastSuccessBranch }}
+          last-successful-event: ${{ inputs.lastSuccessfulEvent }}
 
       - run: |
           echo "BASE: ${{ env.NX_BASE }}"
