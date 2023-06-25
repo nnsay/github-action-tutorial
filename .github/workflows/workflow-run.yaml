@@ -1,0 +1,16 @@
+name: Workflow run
+
+on:
+  workflow_run:
+    workflows: [Dev(master) release]
+    types:
+      - completed
+
+jobs:
+  deploy-aws:
+    uses: ./.github/workflows/deploy-aws.yml
+    with:
+      envName: dev
+      workflowId: master-release.yaml
+    secrets: inherit
+    name: Deploy AWS - Dev environment
