@@ -8,7 +8,7 @@ on:
 
 jobs:
   run:
-    name: Deploy AWS - Dev environment
+    name: Workflow run logic
     runs-on: ubuntu-latest
     steps:
       - name: Do more something
