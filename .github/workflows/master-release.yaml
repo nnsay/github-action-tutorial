@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - "CHANGELOG.md"
+      - "**/CHANGELOG.md"
 
 jobs:
   deploy-aws:
