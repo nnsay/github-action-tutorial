@@ -7,10 +7,9 @@ on:
       - completed
 
 jobs:
-  deploy-aws:
-    uses: ./.github/workflows/deploy-aws.yml
-    with:
-      envName: dev
-      workflowId: master-release.yaml
-    secrets: inherit
+  run:
     name: Deploy AWS - Dev environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do more something
+        run: echo "Do more something"
