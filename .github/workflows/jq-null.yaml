@@ -28,8 +28,8 @@ jobs:
         run: |
           echo ${{ steps.lastWorflowInfo.outputs.head_branch }}
       - name: check head_branch != "null"
-        if: steps.lastWorflowInfo.outputs.head_branch != "null"
+        if: steps.lastWorflowInfo.outputs.head_branch != 'null'
         run: echo not equal "null"
       - name: check head_branch == "null"
-        if: steps.lastWorflowInfo.outputs.head_branch == "null"
+        if: steps.lastWorflowInfo.outputs.head_branch == 'null'
         run: echo equal "null"
