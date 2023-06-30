@@ -7,7 +7,7 @@ jobs:
     name: jq null 
     runs-on: ubuntu-latest
     steps:
-      - name: export
+      - name: Make temp.json
         run: |
           cat <<EOF >temp.json
           {
@@ -27,9 +27,9 @@ jobs:
       - name: Output
         run: |
           echo ${{ steps.lastWorflowInfo.outputs.head_branch }}
-      - name: check head_branch != null
-        if: steps.lastWorflowInfo.outputs.head_branch != null
-        run: echo not equal null
-      - name: check head_branch == null
-        if: steps.lastWorflowInfo.outputs.head_branch == null
-        run: echo equal null
+      - name: check head_branch != "null"
+        if: steps.lastWorflowInfo.outputs.head_branch != "null"
+        run: echo not equal "null"
+      - name: check head_branch == "null"
+        if: steps.lastWorflowInfo.outputs.head_branch == "null"
+        run: echo equal "null"
