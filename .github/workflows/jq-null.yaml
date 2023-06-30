@@ -1,0 +1,35 @@
+name: jq null value in workflow if expression
+
+on: workflow_dispatch
+
+jobs:
+  jq:
+    name: jq null 
+    runs-on: ubuntu-latest
+    steps:
+      - name: export
+        run: |
+          cat <<EOF >temp.json
+          {
+            "head_branch": null,
+            "event": null
+          }
+          EOF
+          cat temp.json
+      - name: Generate output
+        id: lastWorflowInfo
+        run: |
+          cat temp.json
+          head_branch=$(jq -r .head_branch < temp.json)
+          event=$(jq -r .event < temp.json)
+          echo "head_branch=$head_branch" >> $GITHUB_OUTPUT
+          echo "event=$event" >> $GITHUB_OUTPUT
+      - name: Output
+        run: |
+          echo ${{ steps.lastWorflowInfo.outputs.head_branch }}
+      - name: check head_branch != null
+        if: steps.lastWorflowInfo.outputs.head_branch != null
+        run: echo not equal null
+      - name: check head_branch == null
+        if: steps.lastWorflowInfo.outputs.head_branch == null
+        run: echo equal null
