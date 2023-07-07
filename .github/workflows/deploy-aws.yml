@@ -1,5 +1,6 @@
 name: AWS deployment
 
+run-name: Deploy ${{inputs.envName}}
 on:
   workflow_call:
     inputs:

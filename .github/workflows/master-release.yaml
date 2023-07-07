@@ -15,4 +15,4 @@ jobs:
       envName: ${{ matrix.env }}
       workflowId: master-release.yaml
     secrets: inherit
-    name: Deploy AWS - Sandbox/Dev environment
+    name: Deploy AWS - ${{ matrix.env }} environment
