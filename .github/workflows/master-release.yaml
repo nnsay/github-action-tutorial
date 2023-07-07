@@ -4,14 +4,15 @@ on:
   push:
     branches:
       - master
-    paths:
-      - "**/CHANGELOG.md"
 
 jobs:
   deploy-aws:
+    strategy:
+      matrix:
+        env: [sandbox, dev]
     uses: ./.github/workflows/deploy-aws.yml
     with:
-      envName: dev
+      envName: ${{ matrix.env }}
       workflowId: master-release.yaml
     secrets: inherit
-    name: Deploy AWS - Dev environment
+    name: Deploy AWS - Sandbox/Dev environment
