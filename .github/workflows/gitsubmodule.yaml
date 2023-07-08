@@ -25,10 +25,13 @@ jobs:
       - name: Install CI dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Submodule switch to master/main branch
-        run: git submodule foreach "git switch main || git switch master || true"
+      # - name: Submodule switch to master/main branch
+      #   run: git submodule foreach "git switch main || git switch master || true"
 
       - name: test
         run: |
           yarn nx format:write --uncommitted
+          echo 1
+          git submodule foreach 'git diff $sha1 --name-only'
+          echo 2
           git submodule foreach 'files=$(git diff $sha1 --name-only | xargs -I {} sh -c "echo $sm_path/{}" | xargs) && cd ../../ && yarn nx format:write --files $files'
