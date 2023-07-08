@@ -25,8 +25,8 @@ jobs:
       - name: Install CI dependencies
         run: yarn install --frozen-lockfile
 
-      # - name: Submodule switch to master/main branch
-      #   run: git submodule foreach "git switch main || git switch master || true"
+      - name: Submodule switch to master/main branch
+        run: git submodule foreach "git switch main || git switch master || true"
 
       - name: test
         run: |
