@@ -32,7 +32,7 @@ jobs:
         run: |
           yarn nx format:write --uncommitted
           echo 1
-          git submodule foreach 'echo $sha1'
+          git submodule foreach 'echo $sha1, echo $(git rev-parse HEAD)'
           echo 2
           git submodule foreach 'git diff $sha1 --name-only'
           echo 3
