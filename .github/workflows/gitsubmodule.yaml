@@ -1,0 +1,26 @@
+name: Git submodule
+
+on: workflow_dispatch
+
+jobs:
+  submodule:
+    name: submodule
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+
+      - name: Apply the node_modules cache
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-modules-${{ hashFiles('package.json') }}
+          path: node_modules
+
+      - name: Install CI dependencies
+        run: yarn install --frozen-lockfile
