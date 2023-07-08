@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   jq:
-    name: jq null 
+    name: jq null
     runs-on: ubuntu-latest
     steps:
       - name: Make temp.json
