@@ -32,14 +32,14 @@ jobs:
         run: |
           yarn nx format:write --uncommitted
           echo 1
-          git submodule foreach 'echo $sha1, echo $(git rev-parse origin/HEAD)'
-          echo 2
-          git submodule foreach 'git diff $sha1..$(git rev-parse origin/HEAD) --name-only'
-          echo 3
-          git submodule foreach 'files=$(git diff $sha1..$(git rev-parse origin/HEAD) --name-only | xargs) && echo _${files}_'
-          echo 4
-          git submodule foreach 'files=$(git diff $sha1..$(git rev-parse origin/HEAD) --name-only | xargs -I {} sh -c "echo $sm_path/{}" | xargs) && cd ../../ && yarn nx format:write --files $files'
-          echo 5
+          # git submodule foreach 'echo $sha1, echo $(git rev-parse origin/HEAD)'
+          # echo 2
+          # git submodule foreach 'git diff $sha1..$(git rev-parse origin/HEAD) --name-only'
+          # echo 3
+          # git submodule foreach 'files=$(git diff $sha1..$(git rev-parse origin/HEAD) --name-only | xargs) && echo _${files}_'
+          # echo 4
+          # git submodule foreach 'files=$(git diff $sha1..$(git rev-parse origin/HEAD) --name-only | xargs -I {} sh -c "echo $sm_path/{}" | xargs) && cd ../../ && yarn nx format:write --files $files'
+          # echo 5
           git submodule foreach 'files=$(git diff $sha1 --name-only | xargs -I {} sh -c "echo $sm_path/{}" | xargs) && if [ "$files" ]; then echo "yarn nx format:write --files $files" >> ../../format.sh; fi'
           echo 6
           if [ -f format.sh ]; then
