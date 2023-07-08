@@ -36,6 +36,12 @@ jobs:
           echo 2
           git submodule foreach 'git diff $sha1..$(git rev-parse origin/HEAD) --name-only'
           echo 3
-          git submodule foreach 'files=$(git diff $sha1..$(git rev-parse origin/HEAD) --name-only | xargs) && echo $files'
+          git submodule foreach 'files=$(git diff $sha1..$(git rev-parse origin/HEAD) --name-only | xargs) && echo _${files}_'
           echo 4
           git submodule foreach 'files=$(git diff $sha1..$(git rev-parse origin/HEAD) --name-only | xargs -I {} sh -c "echo $sm_path/{}" | xargs) && cd ../../ && yarn nx format:write --files $files'
+          git submodule foreach 'files=$(git diff $sha1..$(git rev-parse origin/HEAD) --name-only | xargs -I {} sh -c "echo $sm_path/{}" | xargs) && if [ $files ]; then echo "yarn nx format:write --files $files" >> ../../format.sh; fi'
+          if [ -f format.sh ];
+            cat format.sh
+            sh format.sh
+            rm format.sh
+          fi
