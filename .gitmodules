@@ -1,0 +1,8 @@
+[submodule "subapp1"]
+	path = apps/subapp1
+	url = git@github.com:nnsay/subapp1.git
+	branch = master
+[submodule "subapp2"]
+	path = apps/subapp2
+	url = git@github.com:nnsay/subapp2.git
+	branch = main
