@@ -1,0 +1,14 @@
+name: Test self host runner
+
+on: workflow_dispatch
+
+jobs:
+  shell:
+    name: self host runner
+    runs-on: self-hosted
+    steps:
+      - name: check env
+        run: env
+
+      - name: check command
+        run: jq --version
