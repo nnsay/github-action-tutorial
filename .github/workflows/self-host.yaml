@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   shell:
     name: self host runner
-    runs-on: self-hosted
+    runs-on: demo-runner
     steps:
       - name: check env
         run: env
