@@ -15,6 +15,9 @@ jobs:
       - name: check env
         run: env
 
+      - name: ls command
+        run: ls /bin/
+
       - name: check command
         run: |
           jq --version || true
@@ -22,3 +25,4 @@ jobs:
           gh --version || true
           node --version || true
           yarn --version || true
+          yarnpkg --version || true
