@@ -7,6 +7,9 @@ jobs:
     name: self host runner
     runs-on: demo
     steps:
+      - name: Check yarn
+        run: yarn --version
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -25,4 +28,3 @@ jobs:
           gh --version || true
           node --version || true
           yarn --version || true
-          yarnpkg --version || true
