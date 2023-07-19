@@ -15,3 +15,4 @@ jobs:
           jq --version || true
           aws --version || true
           gh --version || true
+          yarn --version || true
