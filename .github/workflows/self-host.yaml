@@ -7,6 +7,11 @@ jobs:
     name: self host runner
     runs-on: demo
     steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - name: check env
         run: env
 
@@ -15,4 +20,5 @@ jobs:
           jq --version || true
           aws --version || true
           gh --version || true
+          node --version || true
           yarn --version || true
