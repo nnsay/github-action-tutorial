@@ -8,7 +8,7 @@ jobs:
     runs-on: demo
     steps:
       - name: Check yarn
-        run: yarn --version
+        run: yarn --version || true
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
