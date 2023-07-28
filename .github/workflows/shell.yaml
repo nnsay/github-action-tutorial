@@ -8,12 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: export
-        run: |
-          export VITE_TAG=1.0.1
-          echo "VITE_TAG: $VITE_TAG"
-          env
-      - name: outout export from above step
-        run: echo VITE_TAG $VITE_TAG
-      - name: check env
-        run: env
-
+        uses: nick-fields/retry@v2
+        with:
+          timeout_seconds: 15
+          max_attempts: 3
+          retry_on: error
+          command: node app.js
