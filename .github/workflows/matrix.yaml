@@ -37,6 +37,8 @@ jobs:
 
       - name: do some long time task
         run: |
+          set +e
+
           attempt_num=0
           max_attempts=3
           success=false
