@@ -12,7 +12,7 @@ jobs:
     name: check matrix
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
+      # max-parallel: 1
       matrix:
         env_name: [sandbox, dev, staging, prod]
     environment: ${{ matrix.env_name }}
@@ -34,3 +34,27 @@ jobs:
         run: echo $ENV_NAME from repo environment
         env:
           ENV_NAME: ${{vars.ENV_NAME}}
+
+      - name: do some long time task
+        run: |
+          a=0
+          until [ ! $a -lt 2 ]
+          do
+            echo $a
+            if [ $ENV_NAME == "sandbox" ]; then
+            ping -c $(( $RANDOM % 60 )) github.com
+            fi
+            if [ $ENV_NAME == "dev" ]; then
+              ping -c $(( $RANDOM % 60 )) github.com
+            fi
+            if [ $ENV_NAME == "staging" ]; then
+              sleeping -c $(( $RANDOM % 60 )) github.com
+            fi
+            if [ $ENV_NAME == "prod" ]; then
+              ping -c $(( $RANDOM % 60 )) github.com
+            fi
+            a=`ps aux | grep 'ping' | wc -l | tr -d '[:space:]'`
+          done
+
+        env:
+          ENV_NAME: ${{matrix.env_name}}
