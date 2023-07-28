@@ -37,15 +37,22 @@ jobs:
 
       - name: do some long time task
         run: |
-          retryCount=0
-          retryLimit=3
-          until [ ! $retryCount -lt $retryLimit ]
-          do
-            echo $retryCount
-            command="ping -c $(( $RANDOM % 60 + 1 )) github.com"
-            echo $command
-            `$command`
-            retryCount=`expr $retryCount + 1`
+          attempt_num=0
+          max_attempts=3
+          success=false
+          while [ $success = false ] && [ $attempt_num -lt $max_attempts ]; do
+            echo "attempt_num: $attempt_num"
+
+            ping baidu.com
+
+            if [ $? -eq 0 ]; then
+              success=true
+            else
+              attempt_num=$((attempt_num + 1))
+              sleep_seconds=$(( $RANDOM % 60 + 1 ))
+              echo "sleep_seconds:$sleep_seconds"
+              sleep $sleep_seconds
+            fi
           done
 
         env:
