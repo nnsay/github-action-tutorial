@@ -54,7 +54,7 @@ jobs:
             if [ $ENV_NAME == "prod" ]; then
               ping -c $(( $RANDOM % 60 )) github.com
             fi
-            retryCount=`expr $retryCount + 2`
+            retryCount=`expr $retryCount + 1`
           done
 
         env:
