@@ -43,16 +43,16 @@ jobs:
           do
             echo $retryCount
             if [ $ENV_NAME == "sandbox" ]; then
-              ping -c $(( $RANDOM % 60 )) github.com
+              ping -c $(( $RANDOM % 60 + 1 )) github.com
             fi
             if [ $ENV_NAME == "dev" ]; then
-              ping -c $(( $RANDOM % 60 )) github.com
+              ping -c $(( $RANDOM % 60 + 1 )) github.com
             fi
             if [ $ENV_NAME == "staging" ]; then
-              ping -c $(( $RANDOM % 60 )) github.com
+              ping -c $(( $RANDOM % 60 + 1 )) github.com
             fi
             if [ $ENV_NAME == "prod" ]; then
-              ping -c $(( $RANDOM % 60 )) github.com
+              ping -c $(( $RANDOM % 60 + 1 )) github.com
             fi
             retryCount=`expr $retryCount + 1`
           done
