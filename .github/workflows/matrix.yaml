@@ -37,10 +37,11 @@ jobs:
 
       - name: do some long time task
         run: |
-          a=0
-          until [ ! $a -lt 2 ]
+          retryCount=0
+          retryLimit=3
+          until [ ! $retryCount -lt $retryLimit ]
           do
-            echo $a
+            echo $retryCount
             if [ $ENV_NAME == "sandbox" ]; then
             ping -c $(( $RANDOM % 60 )) github.com
             fi
@@ -53,7 +54,7 @@ jobs:
             if [ $ENV_NAME == "prod" ]; then
               ping -c $(( $RANDOM % 60 )) github.com
             fi
-            a=`ps aux | grep 'ping' | wc -l | tr -d '[:space:]'`
+            retryCount=`expr $retryCount + 2`
           done
 
         env:
