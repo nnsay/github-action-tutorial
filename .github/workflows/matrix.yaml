@@ -43,7 +43,7 @@ jobs:
           while [ $success = false ] && [ $attempt_num -lt $max_attempts ]; do
             echo "attempt_num: $attempt_num"
 
-            type bbb
+            node apple.js
 
             if [ $? -eq 0 ]; then
               success=true
