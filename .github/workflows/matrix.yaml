@@ -43,13 +43,13 @@ jobs:
           while [ $success = false ] && [ $attempt_num -lt $max_attempts ]; do
             echo "attempt_num: $attempt_num"
 
-            ping baidu.com
+            type bbb
 
             if [ $? -eq 0 ]; then
               success=true
             else
               attempt_num=$((attempt_num + 1))
-              sleep_seconds=$(( $RANDOM % 60 + 1 ))
+              sleep_seconds=$(( $RANDOM % 10 + 1 ))
               echo "sleep_seconds:$sleep_seconds"
               sleep $sleep_seconds
             fi
