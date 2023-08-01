@@ -13,4 +13,4 @@ jobs:
       - name: env
         run: env
       - name: github event
-        run: echo ${{ github.event }}
+        run: echo ${{ toJSON(github) }}
