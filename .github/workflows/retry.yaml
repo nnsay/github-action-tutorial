@@ -1,0 +1,16 @@
+name: Test shell scripts
+
+on: workflow_dispatch
+
+jobs:
+  shell:
+    name: test shell
+    runs-on: ubuntu-latest
+    steps:
+      - name: export
+        uses: nick-fields/retry@v2
+        with:
+          timeout_seconds: 15
+          max_attempts: 3
+          retry_on: error
+          command: node app.js

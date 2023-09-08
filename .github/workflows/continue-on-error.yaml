@@ -1,0 +1,18 @@
+name: Test Continue On Error
+
+on: workflow_dispatch
+
+jobs:
+  shell:
+    name: test shell
+    runs-on: ubuntu-latest
+    steps:
+      - name: Operation start
+        run: echo start
+
+      - name: Do something with error
+        run: type noddddd
+        continue-on-error: true
+
+      - name: Operation end
+        run: echo end
