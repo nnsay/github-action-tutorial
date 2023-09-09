@@ -3,7 +3,7 @@ name: Test nx shas
 on:
   pull_request:
     branches:
-      - master
+      - master1
 
 jobs:
   nx-sha:
