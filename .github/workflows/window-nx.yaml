@@ -10,6 +10,17 @@ jobs:
     name: test nx shas
     runs-on: windows-latest
     steps:
+      - name: Config git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check out git repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: true
+
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v2
         with:
