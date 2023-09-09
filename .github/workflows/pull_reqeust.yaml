@@ -19,4 +19,4 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: context
-        run: sleep 30
+        run: sleep 20
