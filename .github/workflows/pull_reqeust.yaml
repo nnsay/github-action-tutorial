@@ -7,6 +7,7 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}
+  cancel-in-progress: true
 
 jobs:
   pr:
@@ -20,3 +21,14 @@ jobs:
 
       - name: context
         run: sleep 20
+
+      - run: |
+          echo 1%
+          sleep 5
+      - run: |
+          echo 50%
+          sleep 5
+      - run: |
+          echo 100%
+          sleep 5
+        if: always()
