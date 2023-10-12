@@ -28,6 +28,7 @@ jobs:
       - run: |
           echo 50%
           sleep 5
+
       - run: |
           echo 100%
           sleep 5
