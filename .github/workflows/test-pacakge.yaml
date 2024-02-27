@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   shell:
-    name: self host runner
+    name: test some package
     runs-on: ubuntu-latest
     steps:
       - name: Check yarn
