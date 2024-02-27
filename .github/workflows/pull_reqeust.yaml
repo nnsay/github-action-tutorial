@@ -1,0 +1,36 @@
+name: Test Pull Request
+
+on:
+  pull_request:
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  pr:
+    name: test pr
+    runs-on: ubuntu-latest
+    steps:
+      - name: Config git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: context
+        run: sleep 20
+
+      - run: |
+          echo 1%
+          sleep 5
+
+      - run: |
+          echo 50%
+          sleep 5
+
+      - run: |
+          echo 100%
+          sleep 5
+        if: always()
