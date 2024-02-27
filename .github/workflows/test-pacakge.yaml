@@ -1,0 +1,36 @@
+name: Test package
+
+on: workflow_dispatch
+
+jobs:
+  shell:
+    name: self host runner
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check yarn
+        run: yarn --version || true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install yarn
+        run: npm install yarn -g
+
+      - name: Check yarn
+        run: yarn --version || true
+
+      - name: check env
+        run: env
+
+      - name: ls command
+        run: ls /bin/
+
+      - name: check command
+        run: |
+          jq --version || true
+          aws --version || true
+          gh --version || true
+          node --version || true
+          yarn --version || true
