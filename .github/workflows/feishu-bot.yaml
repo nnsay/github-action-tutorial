@@ -35,10 +35,10 @@ on:
   #   types: [created, deleted]
   # project_column:
   #   types: [created, deleted]
-  public:
+  # public:
   pull_request:
     branches: ['main']
-    types: [opened, reopened]
+    types: [opened, reopened, closed]
   pull_request_review:
     types: [edited, dismissed, submitted]
   pull_request_review_comment:
