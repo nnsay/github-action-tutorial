@@ -54,10 +54,6 @@ on:
   status:
   watch:
     types: [started]
-  workflow_dispatch:
-  workflow_run:
-    workflows: ['feishu bot']
-    types: [completed, requested, in_progress]
   # schedule:
   #   - cron: '30 2 * * *'
 
