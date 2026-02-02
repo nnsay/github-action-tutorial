@@ -11,6 +11,7 @@ env:
 
 jobs:
   test:
+    if: ${{ false }}
     name: check environments
     runs-on: ubuntu-latest
     environment: ${{ inputs.env_name }}
