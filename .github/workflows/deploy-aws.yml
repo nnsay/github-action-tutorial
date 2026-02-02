@@ -15,6 +15,7 @@ on:
 
 jobs:
   workflow_info:
+    if: ${{ false }}
     name: Get the last workflow run info
     runs-on: ubuntu-latest
     outputs:
