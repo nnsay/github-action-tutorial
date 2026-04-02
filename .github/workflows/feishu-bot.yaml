@@ -77,7 +77,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: 发送通知
-        run: yarn ts-node scripts/workflow.ts
+        run: yarn tsx scripts/workflow.ts
         env:
           STATUS: ${{ github.event.workflow_run.conclusion }}
           DURATION: ${{ github.event.workflow_run.run_duration_ms }}
