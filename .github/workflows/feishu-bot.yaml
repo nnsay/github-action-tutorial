@@ -3,6 +3,8 @@
 name: feishu bot
 
 on:
+  workflow_dispatch:
+
   # branch_protection_rule:
   #   types: [created, deleted]
   check_run:
