@@ -187,9 +187,7 @@ const exec = async () => {
 
   workflowMessage(
     {
-      envName:
-        (context.payload.environment as string) ||
-        context.ref.replace("refs/heads/", ""),
+      envName: context.payload.environment || "--",
       author: context.actor,
       startedAt: runStartedAt
         ? dayjs(runStartedAt).unix()
