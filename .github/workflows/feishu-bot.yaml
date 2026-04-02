@@ -3,6 +3,8 @@
 name: feishu bot
 
 on:
+  workflow_dispatch:
+
   # branch_protection_rule:
   #   types: [created, deleted]
   check_run:
@@ -79,7 +81,7 @@ jobs:
         env:
           STATUS: ${{ github.event.workflow_run.conclusion }}
           DURATION: ${{ github.event.workflow_run.run_duration_ms }}
-          FAILURE_REASON: ${{ github.event.workflow_run.conclusion == 'failure' && '任务执行失败' || undefined }}
+          FAILURE_REASON: ${{ github.event.workflow_run.conclusion }}
   # send-event:
   #   name: Webhook
   #   runs-on: ubuntu-latest
