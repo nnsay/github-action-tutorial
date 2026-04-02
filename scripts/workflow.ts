@@ -170,20 +170,7 @@ const workflowMessage = async (
 const exec = async () => {
   const { context } = await import("@actions/github");
   const { runStartedAt } = process.env;
-  console.log("%j", context);
-  console.log("%j", process.env);
-  const eventTitleMap: Record<string, string> = {
-    push: "代码合并部署",
-    pull_request: "Pull Request 事件",
-    pull_request_target: "Pull Request 事件",
-    workflow_dispatch: "手动触发部署",
-    workflow_call: "跨 workflow 调用",
-    schedule: "定时任务",
-    release: "版本发布",
-  };
-  const title = eventTitleMap[context.eventName] || `流水线运行通知`;
 
-  // 动态获取 commitMessage
   let commitMessage: string | undefined;
   if (context.eventName === "push" && context.payload.head_commit) {
     commitMessage = context.payload.head_commit.message;
@@ -213,7 +200,7 @@ const exec = async () => {
       sha: context.sha,
       commitMessage: commitMessage,
     },
-    title,
+    context.workflow,
   );
 };
 exec().catch((err) => {
