@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from "axios";
 import dayjs from "dayjs";
 import crypto from "crypto";
@@ -170,7 +171,8 @@ const workflowMessage = async (
 const exec = async () => {
   const { context } = await import("@actions/github");
   const { runStartedAt } = process.env;
-
+  console.debug("context: %j", context);
+  console.debug("env: %j", process.env);
   let commitMessage: string | undefined;
   if (context.eventName === "push" && context.payload.head_commit) {
     commitMessage = context.payload.head_commit.message;
@@ -184,7 +186,15 @@ const exec = async () => {
     commitMessage =
       context.payload.release.name || context.payload.release.tag_name;
   }
-
+  let branch: string;
+  if (
+    context.eventName === "pull_request" ||
+    context.eventName === "pull_request_target"
+  ) {
+    branch = context.payload.pull_request?.head?.ref || context.ref;
+  } else {
+    branch = context.ref.replace("refs/heads/", "");
+  }
   workflowMessage(
     {
       envName: context.payload.environment || "--",
@@ -192,10 +202,11 @@ const exec = async () => {
       startedAt: runStartedAt
         ? dayjs(runStartedAt).unix()
         : Math.floor(Date.now() / 1000),
-      status: (process.env.STATUS as any) || "running",
+      // @ts-expect-error
+      status: process.env.STATUS || "running",
       pipelineUrl: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
-      branch: context.ref.replace("refs/heads/", ""),
-      sha: context.sha,
+      branch,
+      sha: context.payload.after,
       commitMessage: commitMessage,
     },
     context.workflow,
