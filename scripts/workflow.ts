@@ -27,9 +27,8 @@ const workflowMessage = async (
     status: "success" | "failed" | "running" | "canceled";
     pipelineUrl: string;
     branch: string;
+    sha?: string;
     commitMessage?: string;
-    failureReason?: string;
-    duration?: number;
   },
   title = "流水线运行通知",
 ) => {
@@ -60,11 +59,7 @@ const workflowMessage = async (
     },
   };
   const status = statusConfig[pipelineInfo.status];
-  const durationStr = pipelineInfo.duration
-    ? `${Math.floor(pipelineInfo.duration / 60)}分${
-        pipelineInfo.duration % 60
-      }秒`
-    : "-";
+  const shaStr = pipelineInfo.sha ? pipelineInfo.sha.slice(0, 7) : "-";
 
   const url = WORKFLOW_WEBHOOK;
   const secret = WORKFLOW_WEBHOOK_SIGN_SECRET;
@@ -121,7 +116,7 @@ const workflowMessage = async (
                   {
                     tag: "markdown",
                     text_align: "left",
-                    content: `**耗时**: ${durationStr}`,
+                    content: `**SHA**: ${shaStr}`,
                   },
                   {
                     tag: "markdown",
@@ -142,17 +137,6 @@ const workflowMessage = async (
                   text: {
                     tag: "lark_md",
                     content: `**提交信息**: ${pipelineInfo.commitMessage}`,
-                  },
-                },
-              ]
-            : []),
-          ...(pipelineInfo.status === "failed" && pipelineInfo.failureReason
-            ? [
-                {
-                  tag: "div",
-                  text: {
-                    tag: "lark_md",
-                    content: `**失败原因**: ${pipelineInfo.failureReason}`,
                   },
                 },
               ]
@@ -186,20 +170,7 @@ const workflowMessage = async (
 const exec = async () => {
   const { context } = await import("@actions/github");
   const { runStartedAt } = process.env;
-  console.log("%j", context);
-  console.log("%j", process.env);
-  const eventTitleMap: Record<string, string> = {
-    push: "代码合并部署",
-    pull_request: "Pull Request 事件",
-    pull_request_target: "Pull Request 事件",
-    workflow_dispatch: "手动触发部署",
-    workflow_call: "跨 workflow 调用",
-    schedule: "定时任务",
-    release: "版本发布",
-  };
-  const title = eventTitleMap[context.eventName] || `流水线运行通知`;
 
-  // 动态获取 commitMessage
   let commitMessage: string | undefined;
   if (context.eventName === "push" && context.payload.head_commit) {
     commitMessage = context.payload.head_commit.message;
@@ -218,19 +189,18 @@ const exec = async () => {
     {
       envName:
         (context.payload.environment as string) ||
-        context.ref.replace("refs/heads/", "--"),
+        context.ref.replace("refs/heads/", ""),
       author: context.actor,
       startedAt: runStartedAt
         ? dayjs(runStartedAt).unix()
         : Math.floor(Date.now() / 1000),
-      status: "running",
+      status: (process.env.STATUS as any) || "running",
       pipelineUrl: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
       branch: context.ref.replace("refs/heads/", ""),
+      sha: context.sha,
       commitMessage: commitMessage,
-      failureReason: undefined,
-      duration: undefined,
     },
-    title,
+    context.workflow,
   );
 };
 exec().catch((err) => {

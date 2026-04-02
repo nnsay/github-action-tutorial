@@ -76,12 +76,24 @@ jobs:
       - name: Install CI dependencies
         run: yarn install --frozen-lockfile
 
-      - name: 发送通知
+      - name: workflow success notify
+        if: success()
         run: yarn tsx scripts/workflow.ts
         env:
-          STATUS: ${{ github.event.workflow_run.conclusion }}
-          DURATION: ${{ github.event.workflow_run.run_duration_ms }}
-          FAILURE_REASON: ${{ github.event.workflow_run.conclusion }}
+          STATUS: success
+
+      - name: workflow failure notify
+        if: failure()
+        run: yarn tsx scripts/workflow.ts
+        env:
+          STATUS: failure
+
+      - name: workflow cancelled notify
+        if: cancelled()
+        run: yarn tsx scripts/workflow.ts
+        env:
+          STATUS: cancelled
+
   # send-event:
   #   name: Webhook
   #   runs-on: ubuntu-latest
