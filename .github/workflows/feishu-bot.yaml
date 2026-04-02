@@ -37,7 +37,7 @@ on:
   #   types: [created, deleted]
   # public:
   pull_request:
-    branches: ['main']
+    branches: ["main"]
     types: [opened, reopened, closed]
   pull_request_review:
     types: [edited, dismissed, submitted]
@@ -46,7 +46,7 @@ on:
   pull_request_target:
     types: [assigned, opened, synchronize, reopened]
   push:
-    branches: ['main', 'master']
+    branches: ["main", "master"]
   # registry_package:
   #   types: [published]
   release:
@@ -58,11 +58,33 @@ on:
   #   - cron: '30 2 * * *'
 
 jobs:
-  send-event:
-    name: Webhook
+  notify:
     runs-on: ubuntu-latest
     steps:
-      - uses: junka/feishu-bot-webhook-action@1.0.11
+      - name: Check out git repository
+        uses: actions/checkout@v3
         with:
-          webhook: ${{ secrets.FEISHU_BOT_WEBHOOK }}
-          signkey: ${{ secrets.FEISHU_BOT_SIGNKEY }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install CI dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 发送通知
+        run: ts-node scripts/workflow.ts
+        env:
+          STATUS: ${{ github.event.workflow_run.conclusion }}
+          DURATION: ${{ github.event.workflow_run.run_duration_ms }}
+          FAILURE_REASON: ${{ github.event.workflow_run.conclusion == 'failure' && '任务执行失败' || undefined }}
+  # send-event:
+  #   name: Webhook
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: junka/feishu-bot-webhook-action@1.0.11
+  #       with:
+  #         webhook: ${{ secrets.FEISHU_BOT_WEBHOOK }}
+  #         signkey: ${{ secrets.FEISHU_BOT_SIGNKEY }}
